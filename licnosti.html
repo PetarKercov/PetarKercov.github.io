@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Veb prezentacija poznatih sportista Srbije i sportskih objekata.">
+    <meta name="keywords" content="Srbija, sportisti, teniseri, košarkaši, fudbaleri, odbojkaši, vaterpolisti, tekvondo, sportski objekti">
+    <meta name="author" content="Petar Kerčov">
+    <title>Poznati sportisti Srbije</title>
+    <link rel="stylesheet" href="stil.css">
+</head>
+<body>
+    <header id="zaglavlje">
+        <a href="index.html" class="logo">
+            <img src="slike/Logo.png" alt="logo Srpskih sportista">
+            Srpski Sportisti
+        </a>
+        <nav>
+            <ul id="mobilni-nav">
+                <li><a href="index.html">Početna</a></li>
+                <li><a href="licnosti.html">Ličnosti</a></li>
+                <li><a href="galerija.html">Galerija</a></li>
+                <li><a href="kontakt.html">Kontakt</a></li>
+            </ul>
+        </nav>
+        <div class="dugmad-zaglavlja">
+            <button class="hamburger-dugme">&#9776;</button>
+            <button id="promeni-temu">Promeni temu</button>
+            <button id="povecaj-font">A+</button>
+            <button id="smanji-font">A-</button>
+        </div>        
+    </header>
+
+    <main>
+        
+
+        <section id="licnosti">
+            <h2>Poznate ličnosti</h2>
+            <div class="dugmad-filtera">
+                <button class="dugme-filtera active" data-filter="svi">Svi sportovi</button>
+                <button class="dugme-filtera" data-filter="tenis">Tenis</button>
+                <button class="dugme-filtera" data-filter="kosarka">Košarka</button>
+                <button class="dugme-filtera" data-filter="tekvondo">Tekvondo</button>
+                <button class="dugme-filtera" data-filter="fudbal">Fudbal</button>
+                <button class="dugme-filtera" data-filter="odbojka">Odbojka</button>
+                <button class="dugme-filtera" data-filter="vaterpolo">Vaterpolo</button>
+            </div>
+            <div class="omotac-licnosti"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>2025 Veb prezentacija srpskih sportista - Petar Kerčov</p>
+    </footer>
+    
+    <script src="skripta.js"></script>
+</body>
+</html>
