@@ -33,11 +33,10 @@ body {
     color: var(--boja-teksta);
     background: var(--boja-pozadine);
     opacity: 0;
-    animation: pojavljivanje 1s ease-in forwards;
+    animation: pojavljivanje 0.5s ease-in forwards;
 }
 
 /* Naslovi i tekst */
-
 h1 {
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
@@ -137,18 +136,14 @@ h3 {
 /* Sekcije */
 section {
     display: block;
-    opacity: 0;
-    transition: opacity 360ms ease, transform 360ms ease;
-    will-change: opacity, transform;
+    opacity:1;
     padding: 0 20px;
     box-sizing: border-box;
     padding-top: 100px;
     padding-bottom:80px; 
     min-height: 85vh;
 }
-section.active {
-    opacity: 1;
-}
+
 
 #pocetna {
     color: var(--boja-teksta);

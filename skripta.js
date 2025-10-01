@@ -1,8 +1,39 @@
+
+     // Cookie funkcije
+    // Kreiranje cookie-ja sa 30 dana trajanja
+    function napraviCookie(ime, vrednost) {
+        const danas = new Date();
+        danas.setTime(danas.getTime() + (30 * 24 * 60 * 60 * 1000)); // 30 dana
+        document.cookie = ime + "=" + encodeURIComponent(vrednost) + "; path=/; expires=" + danas.toUTCString();
+    }
+
+    // Brisanje cookie-ja
+    function obrisiCookie(ime) {
+        const danas = new Date(0); // postavi datum na prošlost
+        document.cookie = ime + "=; path=/; expires=" + danas.toUTCString();
+    }
+
+    // Čitanje cookie-ja
+    function uzmiCookie(ime) {
+        const sviKukiji = "; " + document.cookie;
+        const delovi = sviKukiji.split("; " + ime + "=");
+        if (delovi.length === 2) return decodeURIComponent(delovi.pop().split(";").shift());
+        return null;
+    }
+    const primeniSacuvanaTemu = () => {
+    // SADA uzmiCookie() radi jer je definisana iznad!
+    const sacuvanaTema = uzmiCookie("tema");
+    if (sacuvanaTema) {
+        document.body.classList.add(sacuvanaTema);
+    }
+        };
+    primeniSacuvanaTemu();
+
+
 document.addEventListener('DOMContentLoaded', () => {
     /* Konstante i elementi */
     const ELEMENTI = {
         navLinkovi: document.querySelectorAll('#zaglavlje nav ul li a'),
-        sekcije: document.querySelectorAll('section'),
         filterDugme: document.querySelectorAll('.dugme-filtera'),
         LicnostiOmotac: document.querySelector('.omotac-licnosti'),
         promeniTemu: document.getElementById('promeni-temu'),
@@ -66,46 +97,7 @@ const GALERIJA_PODACI = [ {"godina": "2000", "takmicenje": "Olimpijske igre, Sid
 
     const osnovnaPutanja = dohvatiOsnovnuPutanju();
 
-    const animirajSakrivanjeSekcije = (sekcija) => {
-        if (!sekcija.classList.contains('active')) {
-            sekcija.style.display = 'none';
-            return;
-        }
-        sekcija.classList.remove('active');
-        const priZavrsetku = (e) => {
-            if (e.propertyName === 'opacity' && !sekcija.classList.contains('active')) {
-                sekcija.style.display = 'none';
-                sekcija.removeEventListener('transitionend', priZavrsetku);
-            }
-        };
-        sekcija.addEventListener('transitionend', priZavrsetku);
-    };
-
-    // Prikaz sekcije
-    const prikaziSekciju = (idSekcije) => {
-        const ciljnaSekcija = document.getElementById(idSekcije);
-        if (!ciljnaSekcija) return;
-
-        if (ciljnaSekcija.classList.contains('active')) {
-            window.scrollTo({ top: 0, behavior: 'auto' });
-            return;
-        }
-
-        ELEMENTI.sekcije.forEach(sekcija => {
-            if (sekcija === ciljnaSekcija) return;
-            if (sekcija.classList.contains('active')) {
-                animirajSakrivanjeSekcije(sekcija);
-            } else {
-                sekcija.style.display = 'none';
-            }
-        });
-
-        ciljnaSekcija.style.display = 'block';
-        void ciljnaSekcija.getBoundingClientRect();
-        ciljnaSekcija.classList.add('active');
-        window.scrollTo({ top: 0, behavior: 'auto' });
-    };
-
+  
     // Prikaz sportista sa odabranim filterom  
     const prikaziSportiste = (filter) => {
         if (!ELEMENTI.LicnostiOmotac) return;
@@ -140,7 +132,7 @@ const GALERIJA_PODACI = [ {"godina": "2000", "takmicenje": "Olimpijske igre, Sid
         });
     };
 
-    // Slajder/Galrija 
+    // Slajder/Galerija 
     let trenutniIndex = 0;
     const inicijalizujSlajder = () => {
         if (!ELEMENTI.slajder) return;
@@ -191,7 +183,7 @@ const GALERIJA_PODACI = [ {"godina": "2000", "takmicenje": "Olimpijske igre, Sid
         }
     };
 
-    // --- Ažuriranje slika 
+    // Ažuriranje slika 
     const azurirajStatickeSlike = () => {
         document.querySelectorAll('img[src^="slike/"]').forEach(img => {
             const original = img.getAttribute('src');
@@ -201,42 +193,9 @@ const GALERIJA_PODACI = [ {"godina": "2000", "takmicenje": "Olimpijske igre, Sid
         });
     };
 
-     // Cookie funkcije
-    // Kreiranje cookie-ja sa 30 dana trajanja
-    function napraviCookie(ime, vrednost) {
-        const danas = new Date();
-        danas.setTime(danas.getTime() + (30 * 24 * 60 * 60 * 1000)); // 30 dana
-        document.cookie = ime + "=" + encodeURIComponent(vrednost) + "; path=/; expires=" + danas.toUTCString();
-    }
-
-    // Brisanje cookie-ja
-    function obrisiCookie(ime) {
-        const danas = new Date(0); // postavi datum na prošlost
-        document.cookie = ime + "=; path=/; expires=" + danas.toUTCString();
-    }
-
-    // Čitanje cookie-ja
-    function uzmiCookie(ime) {
-        const sviKukiji = "; " + document.cookie;
-        const delovi = sviKukiji.split("; " + ime + "=");
-        if (delovi.length === 2) return decodeURIComponent(delovi.pop().split(";").shift());
-        return null;
-    }
-      
 
 
     // Event Listeneri
-    if (ELEMENTI.navLinkovi && ELEMENTI.navLinkovi.length) {
-        ELEMENTI.navLinkovi.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const href = link.getAttribute('href') || '';
-                const idSekcije = href.replace(/^#/, '');
-                if (idSekcije) prikaziSekciju(idSekcije);
-            });
-        });
-    }
-
     if (ELEMENTI.filterDugme && ELEMENTI.filterDugme.length) {
         ELEMENTI.filterDugme.forEach(dugme => {
             dugme.addEventListener('click', () => {
@@ -259,10 +218,6 @@ const GALERIJA_PODACI = [ {"godina": "2000", "takmicenje": "Olimpijske igre, Sid
         }
     });
 
-    const sacuvanaTema = uzmiCookie("tema");
-    if (sacuvanaTema) {
-        document.body.classList.add(sacuvanaTema);
-    }
 }
 
     if (ELEMENTI.hamburgerDugme) {
@@ -318,22 +273,6 @@ const GALERIJA_PODACI = [ {"godina": "2000", "takmicenje": "Olimpijske igre, Sid
             document.body.style.fontSize = trenutniFont + 'px';
         });
     }
-
-    // Incijalni prikaz početne sekcije
-    ELEMENTI.sekcije.forEach(sec => {
-        if (sec.id === 'pocetna') {
-            sec.style.display = 'block';
-            void sec.getBoundingClientRect();
-            sec.classList.add('active');
-        } else {
-            sec.style.display = 'none';
-            sec.classList.remove('active');
-        }
-    });
-
-    window.scrollTo(0, 0);
-    document.documentElement.scrollTop = 0;
-    document.body.scrollTop = 0;
 
     azurirajStatickeSlike();
     prikaziSportiste('svi');
