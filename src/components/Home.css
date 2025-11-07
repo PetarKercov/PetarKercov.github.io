@@ -1,0 +1,28 @@
+.edu-vision-title,
+.edu-vision-description {
+    text-align: center;
+}
+
+.home-page {
+    text-align: center;
+    padding: 0 0 1.25rem 0;
+}
+.register-btn{
+    margin-top: 1.25rem;
+    margin-right: 0.625rem;
+    padding: 0.625rem 0.9375rem;
+    background-color: #3da8a3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.login-btn{
+    margin-top: 1.25rem;
+    padding: 0.625rem 0.9375rem;
+    background-color: #008CBA;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
